@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "ffa5e63e-bbae-4d86-8dbc-13d4e23abbe9",
+		"name": "ctech-lottery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13588328"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/login",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "register user",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/register",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reset password",
+			"item": [
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/resetpassword",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"resetpassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user data and update",
+			"item": [
+				{
+					"name": "show user data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/userdata",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"userdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/userupdate",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"userupdate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "recommend number",
+			"item": [
+				{
+					"name": "auto recommend number",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/recommendnumberregister",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"recommendnumberregister"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show recommend number",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/recommendnumberdata",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"recommendnumberdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "join recommend with sub user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/recommendjoin",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"recommendjoin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show recomment total point",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/recommendpoint",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"recommendpoint"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "buy lottery",
+			"item": [
+				{
+					"name": "check lottery quota and promotion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/checklotteryquotapromption",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"checklotteryquotapromption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payment lottery by bank",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/paymentlotterybybank",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"paymentlotterybybank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history bough lottery",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/historyboughlottery",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"historyboughlottery"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "promotions",
+			"item": [
+				{
+					"name": "promotion cash back",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/promotioncashback",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"promotioncashback"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notification",
+			"item": [
+				{
+					"name": "win lottery notify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/notifywinlottery",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"notifywinlottery"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event promotion notify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:1005/api/notifyevent",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"notifyevent"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
