@@ -8,16 +8,19 @@ const register_user = (request, respond) => {
 
   const { full_name, gender, phone_number, pass_word } = request.body;
 
+//check number
+
   connected.query(queries.checkphone, [phone_number], (error, results) => {
     if (results.rows.length) {
-      respond.send("ເບີນີ້ໄດ້ລົງທະບຽນແລ້ວ");
+      respond.send("ເບີນີ້ໄດ້ລົງທະບຽນແລ້ວ!");
     } else {
+      //add user
       connected.query(
         queries.adduser,
         [full_name, gender, phone_number, pass_word],
         (error, results) => {
           if (error) throw error;
-          respond.send("ລົງທະບຽນສຳເລັດ");
+          respond.send("ລົງທະບຽນສຳເລັດ!");
         }
       );
     }
