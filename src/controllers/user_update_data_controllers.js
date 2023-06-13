@@ -26,7 +26,7 @@ connected.query(queries.show_user_data,[id],(error, results)=> {
 
 }
 
-//ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້
+//ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້ 
 const update_user_data = (request, respond) => {
 
     const { id,gender,full_name,phone_number, pass_word , user_status} = request.body;
