@@ -6,8 +6,8 @@ const queries = require('../queries/promotions_queries');
 
 // ຄິດໄລ່ຫັກຍອດເງິນຄືນ
 const promotions_cash_back = (request, respond) => {
-    
-    connected.query(queries.promotions_cash_back, (error, results) => {
+    const { cbpo_id } = request.body;
+    connected.query(queries.promotions_cash_back, [cbpo_id], (error, results) => {
         if (error) throw error;
         if (results.rows.length) {
             respond.status(200).json(results.rows);
