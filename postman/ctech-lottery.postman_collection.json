@@ -38,6 +38,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\":\"souk\",\r\n    \"gender\":\"1\",\r\n    \"phone_number\":\"77836594\",\r\n    \"pass_word\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:1005/api/register",
 							"host": [
@@ -105,6 +114,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"23\",\r\n    \"gender\":\"2\",\r\n    \"full_name\":\"billy\",\r\n    \"phone_number\":\"77835694\",\r\n    \"pass_word\":\"333\",\r\n    \"user_status\":\"2\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:1005/api/userupdate",
 							"host": [

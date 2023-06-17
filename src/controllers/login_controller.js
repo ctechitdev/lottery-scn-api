@@ -8,16 +8,17 @@ const login = (request, respond) => {
 
 
     // respond.status(200).json("API Login");
-
-    connected.query(queries.login_check, (error, results) => {
+    const { phone_number, pass_word } = request.body;
+    connected.query(queries.login_check, [phone_number, pass_word], (error, results) => {
         if (error) throw error;
         if (results.rows.length) {
             respond.status(200).json(results.rows);
         } else {
-            respond.status(200).json("no data");
+            respond.status(200).send("ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ");
         }
-    })
-}
+    });
+    
+};
 
 
 module.exports = {
