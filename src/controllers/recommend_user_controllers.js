@@ -48,9 +48,9 @@ connected.query(queries.show_recommend_number,[id],(error, results)=> {
 //ຜູກເລກແນະນຳ
 const join_recommend_number_sub_user = (request, respond) => {
 
-        const { user_id, recommend_number } = request.body;
+        const { recommender_id, buyer_id, point_recieve } = request.body;
     
-        connected.query(queries.recommend_number,[user_id,recommend_number],(error,results)=> {
+        connected.query(queries.recommend_number_sub_user,[recommender_id,buyer_id,point_recieve],(error,results)=> {
             if(error) throw error;
             if(results) {
                 respond.status(200).json("Insert done");
@@ -60,7 +60,7 @@ const join_recommend_number_sub_user = (request, respond) => {
         })
     
 
-    respond.status(200).json("API join recommend number with sub user ");
+    //respond.status(200).json("API join recommend number with sub user ");
 
 
 }
@@ -70,8 +70,19 @@ const join_recommend_number_sub_user = (request, respond) => {
 //ສະແດງຍອດແນະນຳ
 const show_recommend_total_point = (request, respond) => {
 
+    const { recommender_id } = request.body;
+    
+    connected.query(queries.show_recommend_total_point,[recommender_id],(error,results)=> {
+        if(error) throw error;
+        if(results) {
+            respond.status(200).json(results.rows);
+        }else{
+            respond.status(200).json("error");
+        }
+    })
 
-    respond.status(200).json("API show total recommend point ");
+
+    //respond.status(200).json("API show total recommend point ");
 
 
 }
