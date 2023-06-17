@@ -5,7 +5,7 @@ const show_user_data = "select gender,full_name,phone_number,user_status from tb
 
 // command sql update user data
 
-const update_user_data = "update tbl_user_external set gender = $2,full_name = $3, pass_word = $4, user_status = $ຸ5 where user_external_id = $1";
+const update_user_data = "update tbl_user_external set gender = $2,full_name = $3, pass_word = $4 where user_external_id = $1";
 
 
 module.exports = {
