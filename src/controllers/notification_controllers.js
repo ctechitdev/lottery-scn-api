@@ -28,7 +28,7 @@ const notification_event_promotion = (request, respond) => {
             respond.status(200).json("API send notification event or promotions to user");
         }
     });
- };
+};
 
 
 

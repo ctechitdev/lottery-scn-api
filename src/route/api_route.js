@@ -19,7 +19,7 @@ const router = Router();
 router.post('/register', register_user_controller.register_user);
 router.post('/login', login_controller.login);
 router.post('/resetpassword', reset_password_controller.reset_password);
-router.get('/userdata/:id', user_data_controllers.show_user_data);
+router.post('/userdata', user_data_controllers.show_user_data);
 router.post('/userupdate', user_data_controllers.update_user_data);
 router.post('/recommendnumberregister', recommend_number_controllers.register_auto_recommend_number);
 router.post('/recommendnumberdata', recommend_number_controllers.show_recommend_number);

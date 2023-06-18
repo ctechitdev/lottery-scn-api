@@ -6,8 +6,19 @@ const queries = require('../queries/recommend_user_queries');
 //ອໍໂຕລົງທະບຽນເລກແນະນຳ
 const register_auto_recommend_number = (request, respond) => {
 
+    const { user_id, recommend_number } = request.body;
 
-    respond.status(200).json("API register recommend auto number");
+    connected.query(queries.recommend_number,[user_id,recommend_number],(error,results)=> {
+        if(error) throw error;
+        if(results) {
+            respond.status(200).json("Insert done");
+        }else{
+            respond.status(200).json("Insert error");
+        }
+    })
+
+
+    //respond.status(200).json("API register recommend auto number");
 
 
 }
@@ -15,8 +26,21 @@ const register_auto_recommend_number = (request, respond) => {
 //ສະແດງເລກແນະນຳ
 const show_recommend_number = (request, respond) => {
 
+    const { id } = request.body;
 
-    respond.status(200).json("API show single recommend number ");
+    console.log(id);
+    
+
+connected.query(queries.show_recommend_number,[id],(error, results)=> {
+    if(error) throw error;
+    if(results.rows.length){
+        respond.status(200).json(results.rows);
+    }else{
+        respond.status(200).send("no data");
+    }
+})  
+
+   // respond.status(200).json("API show single recommend number ");
 
 
 }
@@ -24,8 +48,19 @@ const show_recommend_number = (request, respond) => {
 //ຜູກເລກແນະນຳ
 const join_recommend_number_sub_user = (request, respond) => {
 
+        const { recommender_id, buyer_id, point_recieve } = request.body;
+    
+        connected.query(queries.recommend_number_sub_user,[recommender_id,buyer_id,point_recieve],(error,results)=> {
+            if(error) throw error;
+            if(results) {
+                respond.status(200).json("Insert done");
+            }else{
+                respond.status(200).json("Insert error");
+            }
+        })
+    
 
-    respond.status(200).json("API join recommend number with sub user ");
+    //respond.status(200).json("API join recommend number with sub user ");
 
 
 }
@@ -35,8 +70,19 @@ const join_recommend_number_sub_user = (request, respond) => {
 //ສະແດງຍອດແນະນຳ
 const show_recommend_total_point = (request, respond) => {
 
+    const { recommender_id } = request.body;
+    
+    connected.query(queries.show_recommend_total_point,[recommender_id],(error,results)=> {
+        if(error) throw error;
+        if(results) {
+            respond.status(200).json(results.rows);
+        }else{
+            respond.status(200).json("error");
+        }
+    })
 
-    respond.status(200).json("API show total recommend point ");
+
+    //respond.status(200).json("API show total recommend point ");
 
 
 }
