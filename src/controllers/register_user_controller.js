@@ -26,7 +26,7 @@ const register_user = (request, respond) => {
           respond.send("ລົງທະບຽນສຳເລັດ!");
         }
       );
-    }
+    } 
   });
 };
 
