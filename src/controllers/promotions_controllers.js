@@ -3,9 +3,7 @@ const connected = require('../../setting/connect');
 
 const queries = require('../queries/promotions_queries');
 
-
-// call bcrypt for decrypt function
-const bcrypt = require('bcrypt');
+ 
 
 // call json web token
 const jwt = require('jsonwebtoken');
