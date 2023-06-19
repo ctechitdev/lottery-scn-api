@@ -17,7 +17,6 @@ const login = (request, respond) => {
             respond.status(200).send("ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ");
         }
     });
-    
 };
 
 
