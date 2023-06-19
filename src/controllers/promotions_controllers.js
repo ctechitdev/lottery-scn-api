@@ -4,6 +4,15 @@ const connected = require('../../setting/connect');
 const queries = require('../queries/promotions_queries');
 
 
+// call bcrypt for decrypt function
+const bcrypt = require('bcrypt');
+
+// call json web token
+const jwt = require('jsonwebtoken');
+ 
+// key use for decript and encrype JWT
+const secretkey = "CtectLottery";
+
 // ຄິດໄລ່ຫັກຍອດເງິນຄືນ
 const promotions_cash_back = (request, respond) => {
     const { cbpo_id } = request.body;

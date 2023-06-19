@@ -3,6 +3,16 @@ const connected = require('../../setting/connect');
 
 const queries = require('../queries/recommend_user_queries');
 
+
+// call bcrypt for decrypt function
+const bcrypt = require('bcrypt');
+
+// call json web token
+const jwt = require('jsonwebtoken');
+ 
+// key use for decript and encrype JWT
+const secretkey = "CtectLottery";
+
 //ອໍໂຕລົງທະບຽນເລກແນະນຳ
 const register_auto_recommend_number = (request, respond) => {
 

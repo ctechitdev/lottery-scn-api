@@ -3,6 +3,17 @@ const connected = require("../../setting/connect");
 
 const queries = require("../queries/buy_lottery_queries");
 
+
+// call bcrypt for decrypt function
+const bcrypt = require('bcrypt');
+
+// call json web token
+const jwt = require('jsonwebtoken');
+ 
+// key use for decript and encrype JWT
+const secretkey = "CtectLottery";
+
+
 // ກວດສອບໂຄຕ້າ ແລະ ໂປຣໂມຊັ້ນ ຂອງເລກສ່ຽງ
 const check_lottery_quota_promotion = (request, respond) => {
   // 1.ກວດສອບໂຄຕ້າເລກສ່ຽງ

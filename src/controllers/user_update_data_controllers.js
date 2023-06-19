@@ -4,6 +4,16 @@ const connected = require('../../setting/connect');
 const queries = require('../queries/user_update_data_queries');
 
 
+// call bcrypt for decrypt function
+const bcrypt = require('bcrypt');
+
+// call json web token
+const jwt = require('jsonwebtoken');
+ 
+// key use for decript and encrype JWT
+const secretkey = "CtectLottery";
+
+
 // ສະແດງຂໍ້ມູນຜູ້ໃຊ
 const show_user_data = (request, respond) => {
 

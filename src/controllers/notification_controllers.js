@@ -4,6 +4,15 @@ const connected = require('../../setting/connect');
 const queries = require('../queries/notification_queries');
 
 
+// call bcrypt for decrypt function
+const bcrypt = require('bcrypt');
+
+// call json web token
+const jwt = require('jsonwebtoken');
+ 
+// key use for decript and encrype JWT
+const secretkey = "CtectLottery";
+
 // ສົ່ງແຈ້ງເຕືອນຖືກລາງວັນ
 const notification_win_lottery = (request, respond) => {
     const { wll_id } = request.body;
