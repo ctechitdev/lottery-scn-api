@@ -42,6 +42,12 @@ create table tbl_recommend_point_used(
     rpu_register_date date
 );
 
+create table tbl_join_recommend_number(
+    jrn_id serial,
+    recommender_id int,
+    user_recommend_id int,
+    date_join date
+);
 
 create table tbl_cash_back_promotion(
     cbpo_id serial,

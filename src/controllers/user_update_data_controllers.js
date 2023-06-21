@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 
 // call json web token
 const jwt = require('jsonwebtoken');
- 
+
 // key use for decript and encrype JWT
 const secretkey = "CtectLottery";
 
@@ -20,16 +20,16 @@ const show_user_data = (request, respond) => {
     const { id } = request.body;
 
     console.log(id);
-    
 
-connected.query(queries.show_user_data,[id],(error, results)=> {
-    if(error) throw error;
-    if(results.rows.length){
-        respond.status(200).json(results.rows);
-    }else{
-        respond.status(200).send("no users");
-    }
-})    
+
+    connected.query(queries.show_user_data, [id], (error, results) => {
+        if (error) throw error;
+        if (results.rows.length) {
+            respond.status(200).json(results.rows);
+        } else {
+            respond.status(200).send("no users");
+        }
+    })
 
 
 
@@ -41,35 +41,18 @@ connected.query(queries.show_user_data,[id],(error, results)=> {
 //ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້ 
 const update_user_data = (request, respond) => {
 
-    const { id,gender,full_name, pass_word , user_status} = request.body;
+    const { id, gender, full_name, pass_word } = request.body;
 
-    connected.query(queries.update_user_data,[id,gender,full_name, pass_word],(error,results)=> {
-        if(error) throw error;
-        if(results.rowCount == 1) {
-            respond.status(200).json("update done");
-        }else{
-            respond.status(200).json("update error");
-        }
-    })
-    //respond.status(200).json("API update User single data");
+    connected.query(queries.update_user_data, [id, gender, full_name, pass_word], (error, results) => {
+            if (error) throw error;
+            if (results.rowCount == 1) {
+                respond.status(200).json("update done");
+            } else {
+                respond.status(200).json("update error");
+            }
+        })
+        //respond.status(200).json("API update User single data");
 }
-
-
-const join_recommend_number_sub_user = (request, respond) => {
-
-    const { id,gender,full_name, pass_word , user_status} = request.body;
-
-    connected.query(queries.update_user_data,[id,gender,full_name, pass_word , user_status],(error,results)=> {
-        if(error) throw error;
-        if(results.rowCount == 1) {
-            respond.status(200).json("update done");
-        }else{
-            respond.status(200).json("update error");
-        }
-    })
-    //respond.status(200).json("API update User single data");
-}
-
 
 module.exports = {
     show_user_data,
