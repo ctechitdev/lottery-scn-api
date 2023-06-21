@@ -9,10 +9,12 @@ const reset_password = async (request, respond) => {
   // respond.status(200).json("API reset password");
 
   const random_number = Math.floor(Math.random() * 3473642) * 18;
+  
+  const newPassword = random_number.toString();
 
   const { phone_number } = request.body;
 
-  const newPassword = random_number.toString();
+  
 
   const encryptPassword = await bcrypt.hash(newPassword, 10);
 
