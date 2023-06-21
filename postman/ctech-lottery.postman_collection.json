@@ -14,6 +14,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone_number\":\"55609055\",\r\n    \"pass_word\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:1005/api/login",
 							"host": [
@@ -40,7 +49,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"full_name\":\"souk\",\r\n    \"gender\":\"1\",\r\n    \"phone_number\":\"77836594\",\r\n    \"pass_word\":\"123\"\r\n}",
+							"raw": "{\r\n    \"full_name\":\"billy\",\r\n    \"gender\":\"1\",\r\n    \"phone_number\":\"55609011\",\r\n    \"pass_word\":\"123\",\r\n    \"checkpassword\":\"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -95,6 +104,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:1005/api/userdata",
 							"host": [
@@ -113,10 +131,16 @@
 					"name": "update user data",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDcsImlhdCI6MTY4NzMxODUwMCwiZXhwIjoxNjg3MzI1NzAwfQ.ARpyse0woXXkUOPwbn8R43MuUf9Igv2v8hxFTsvhQdg",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":\"23\",\r\n    \"gender\":\"2\",\r\n    \"full_name\":\"billy\",\r\n    \"phone_number\":\"77835694\",\r\n    \"pass_word\":\"333\",\r\n    \"user_status\":\"2\" \r\n}",
+							"raw": "{\r\n    \"id\":\"23\",\r\n    \"gender\":\"2\",\r\n    \"full_name\":\"billy\",\r\n    \"pass_word\":\"123\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -146,7 +170,22 @@
 					"name": "auto recommend number",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDcsImlhdCI6MTY4NzMxODUwMCwiZXhwIjoxNjg3MzI1NzAwfQ.ARpyse0woXXkUOPwbn8R43MuUf9Igv2v8hxFTsvhQdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":\"1\",\r\n    \"recommend_number\":\"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:1005/api/recommendnumberregister",
 							"host": [
@@ -165,7 +204,22 @@
 					"name": "show recommend number",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDcsImlhdCI6MTY4NzMxODUwMCwiZXhwIjoxNjg3MzI1NzAwfQ.ARpyse0woXXkUOPwbn8R43MuUf9Igv2v8hxFTsvhQdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:1005/api/recommendnumberdata",
 							"host": [
@@ -184,7 +238,22 @@
 					"name": "join recommend with sub user",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDcsImlhdCI6MTY4NzMxODUwMCwiZXhwIjoxNjg3MzI1NzAwfQ.ARpyse0woXXkUOPwbn8R43MuUf9Igv2v8hxFTsvhQdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"recommender_id\":\"123\",\r\n    \"buyer_id\":\"123\",\r\n    \"point_recieve\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:1005/api/recommendjoin",
 							"host": [
@@ -203,7 +272,22 @@
 					"name": "show recomment total point",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDcsImlhdCI6MTY4NzMxODUwMCwiZXhwIjoxNjg3MzI1NzAwfQ.ARpyse0woXXkUOPwbn8R43MuUf9Igv2v8hxFTsvhQdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"recommender_id\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:1005/api/recommendpoint",
 							"host": [
