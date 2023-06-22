@@ -22,13 +22,27 @@ const check_lottery_quota_promotion = (request, respond) => {
 
 // ຊຳລະເງິນ
 const payment_lottery_bank = (request, respond) => {
-  respond.status(200).json("API insert data payment");
+  // respond.status(200).json("API insert data payment");
 };
 
 // ປະຫວັດການຊື້ເລກ
-const history_bought_history = async (request, respond) => {
-  respond.status(200).json("API insert data payment");
-  
+const history_bought_history = (request, respond) => {
+  jwt.verify(request.token, secretkey, (err, rstoken) => {
+    if (err) {
+      respond.status(201).json("token Expire");
+    } else {
+      const byer_id = rstoken.id;
+      //respond.status(200).json(ridderid);
+
+      connected.query(queries.showhistory, [byer_id], (error, results) => {
+        if (results.rows.length) {
+          respond.status(200).json(results.rows);
+        } else {
+          respond.status(201).json("no item");
+        }
+      });
+    }
+  });
 };
 
 module.exports = {
