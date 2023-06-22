@@ -27,21 +27,8 @@ const payment_lottery_bank = (request, respond) => {
 
 // ປະຫວັດການຊື້ເລກ
 const history_bought_history = async (request, respond) => {
-  jwt.verify(request.token, secretkey, (error, rstoken) => {
-    const bbi_id = rstoken.id;
-    if (error) {
-      respond.status(201).json("token Expire");
-    } else {
-      connected.query(queries.showhistory, [bbi_id], (error, results) => {
-        if (error) throw error;
-        if (results.rows.length) {
-          respond.status(200).json(results.rows);
-        } else {
-          respond.status(200).send("no item");
-        }
-      });
-    }
-  });
+  respond.status(200).json("API insert data payment");
+  
 };
 
 module.exports = {
