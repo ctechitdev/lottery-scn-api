@@ -17,11 +17,13 @@ const secretkey = "CtectLottery";
 // ສະແດງຂໍ້ມູນຜູ້ໃຊ
 const show_user_data = (request, respond) => {
 
-    const { id } = request.body;
+    jwt.verify(req.token, secretkey, (err, rstoken) => {
 
-    console.log(id);
+        const id = rstoken.id;
 
-
+       if (err) {
+            res.sendStatus(403);
+        } else {
     connected.query(queries.show_user_data, [id], (error, results) => {
         if (error) throw error;
         if (results.rows.length) {
@@ -30,6 +32,8 @@ const show_user_data = (request, respond) => {
             respond.status(200).send("no users");
         }
     })
+        }
+});
 
 
 
@@ -41,7 +45,10 @@ const show_user_data = (request, respond) => {
 //ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້ 
 const update_user_data = (request, respond) => {
 
-    const { id, gender, full_name, pass_word } = request.body;
+    jwt.verify(req.token, secretkey, (err, rstoken) => {
+
+    const id = rstoken.id;
+    const { gender, full_name, pass_word } = request.body;
 
     connected.query(queries.update_user_data, [id, gender, full_name, pass_word], (error, results) => {
             if (error) throw error;
@@ -51,6 +58,7 @@ const update_user_data = (request, respond) => {
                 respond.status(200).json("update error");
             }
         })
+    });
         //respond.status(200).json("API update User single data");
 }
 
