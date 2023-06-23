@@ -31,14 +31,13 @@ const history_bought_history = (request, respond) => {
     if (err) {
       respond.status(201).json("token Expire");
     } else {
-      const byer_id = rstoken.id;
       //respond.status(200).json(ridderid);
-
-      connected.query(queries.showhistory, [byer_id], (error, results) => {
+      const id = rstoken.id;
+      connected.query(queries.showhistory, [id], (error, results) => {
         if (results.rows.length) {
           respond.status(200).json(results.rows);
         } else {
-          respond.status(201).json("no item");
+          respond.status(200).json("ບໍມີໃນລະບົບ");
         }
       });
     }
