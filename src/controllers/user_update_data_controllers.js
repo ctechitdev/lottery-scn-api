@@ -21,6 +21,8 @@ const show_user_data = (request, respond) => {
         if (err) {
             res.status(200).json("token expire");
         } else {
+
+            const id = rstoken.id;
     
 
         connected.query(queries.show_user_data,[id],(error, results)=> {
@@ -39,25 +41,27 @@ const show_user_data = (request, respond) => {
 //ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້ 
 const update_user_data = (request, respond) => {
 
+    const {gender, full_name, pass_word } = request.body;
+
     jwt.verify(req.token, secretkey, (err, rstoken) => {
+        const id = rstoken.id;
         if (err) {
             res.status(200).json("token expire");
         } else {
-    const {id, gender, full_name, pass_word } = request.body;
+            const encryptPassword = bcrypt.hash(pass_word, 10);
 
-    connected.query(queries.update_user_data, [id, gender, full_name, pass_word], (error, results) => {
-            if (error) throw error;
-            if (results.rowCount == 1) {
-                respond.status(200).json("update done");
-            } else {
-                respond.status(200).json("update error");
+            connected.query(queries.update_user_data, [id, gender, full_name, encryptPassword], (error, results) => {
+                    if (error) throw error;
+                    if (results.rowCount == 1) {
+                        respond.status(200).json("update done");
+                    } else {
+                        respond.status(200).json("update error");
+                    }
+                })
             }
-        })
-    }
-    });
-        //respond.status(200).json("API update User single data");
+    })
 }
-
+        //respond.status(200).json("API update User single data");
 
 const join_recommend_number_sub_user = (request, respond) => {
 
