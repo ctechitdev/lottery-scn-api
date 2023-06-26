@@ -15,7 +15,7 @@ const secretkey = "CtectLottery";
 
 
 // ສະແດງຂໍ້ມູນຜູ້ໃຊ
-const show_user_data = async (request, respond) => {
+const show_user_data = async(request, respond) => {
 
     jwt.verify(request.token, secretkey, (err, rstoken) => {
         if (err) {
@@ -35,12 +35,9 @@ const show_user_data = async (request, respond) => {
     ///respond.status(200).json("API single User data");
 }
 
-//ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້ 
-<<<<<<< HEAD
+//ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້  
 const update_user_data = async(request, respond) => {
-=======
-const update_user_data = async (request, respond) => {
->>>>>>> e0461864471eabf6151a2527b6c0eb404b10e86b
+
 
         const { gender, full_name, pass_word } = request.body;
         const encryptPassword = await bcrypt.hash(pass_word, 10);
