@@ -11,11 +11,11 @@ const jwt = require('jsonwebtoken');
 const secretkey = "CtectLottery";
 
 //ອໍໂຕລົງທະບຽນເລກແນະນຳ
-const register_auto_recommend_number = (request, respond) => {
+const register_auto_recommend_number = async (request, respond) => {
 
     jwt.verify(req.token, secretkey, (err, rstoken) => {
 
-        const user_id = rstoken.id;
+        const user_id =  rstoken.id;
    
     connected.query(queries.check_phone, [user_id], (error, results) => {
         if (error) throw error;
@@ -46,7 +46,7 @@ const register_auto_recommend_number = (request, respond) => {
 }
 
 //ສະແດງເລກແນະນຳ
-const show_recommend_number = (request, respond) => {
+const show_recommend_number = async (request, respond) => {
 
       jwt.verify(req.token, secretkey, (err, rstoken) => {
 
@@ -69,6 +69,7 @@ const show_recommend_number = (request, respond) => {
 
 //ຜູກເລກແນະນຳ
 const join_recommend_number_sub_user = (request, respond) => {
+    const join_recommend_number_sub_user = (request, respond) => {
 
     const { recommender_id, buyer_id, point_recieve } = request.body;
 

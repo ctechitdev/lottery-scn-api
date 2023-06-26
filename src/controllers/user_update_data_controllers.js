@@ -15,7 +15,7 @@ const secretkey = "CtectLottery";
 
 
 // ສະແດງຂໍ້ມູນຜູ້ໃຊ
-const show_user_data = (request, respond) => {
+const show_user_data = async (request, respond) => {
 
     jwt.verify(req.token, secretkey, (err, rstoken) => {
         if (err) {
@@ -39,7 +39,7 @@ const show_user_data = (request, respond) => {
 }
 
 //ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້ 
-const update_user_data = (request, respond) => {
+const update_user_data = async (request, respond) => {
 
     const {id,gender, full_name, pass_word } = request.body;
 
