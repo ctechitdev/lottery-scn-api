@@ -29,7 +29,7 @@ const payment_lottery_bank = (request, respond) => {
     const lottery_number = lottery;
     const price_values = price;
 
-    let i = 0
+    i = 0
 
     //ວົນລູບຕາມຈຳນວນ
     while (i < lottery_number.length) {

@@ -2,6 +2,7 @@
 
 const recommend_number = "INSERT INTO tbl_lottery_recommend_number(user_external_id,lottery_recommend_number,lrn_register_date) VALUES($1, $2, now())";
 
+const check_phone = "SELECT * from tbl_user_external where user_external_id = $1";
 
 // command sql show single recommend number
 const show_recommend_number = "select user_external_id,lottery_recommend_number from tbl_lottery_recommend_number where user_external_id = $1";

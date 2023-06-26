@@ -11,19 +11,34 @@ const jwt = require('jsonwebtoken');
 const secretkey = "CtectLottery";
 
 //ອໍໂຕລົງທະບຽນເລກແນະນຳ
-const register_auto_recommend_number = (request, respond) => {
+const register_auto_recommend_number = async (request, respond) => {
 
-    const { user_id, recommend_number } = request.body;
+    jwt.verify(req.token, secretkey, (err, rstoken) => {
 
-    connected.query(queries.recommend_number, [user_id, recommend_number], (error, results) => {
+        const user_id =  rstoken.id;
+   
+    connected.query(queries.check_phone, [user_id], (error, results) => {
         if (error) throw error;
         if (results) {
-            respond.status(200).json("Insert done");
-        } else {
-            respond.status(200).json("Insert error");
-        }
-    })
+            
+        const currentYear = date.getFullYear() ;
+        const currentMonth = date.getMonth() + 1 ; // 0 - 11
+        const phone_number = results.phone_number;
 
+        const recommend_number = currentYear.concat(currentMonth).concat(currentMonth).concat(phone_number);
+
+            connected.query(queries.recommend_number, [user_id, recommend_number], (error, results) => {
+                if (error) throw error;
+                if (results) {
+                    respond.status(200).json("Insert done");
+                } else {
+                    respond.status(200).json("Insert error");
+                }
+
+            })
+        }
+    });
+    });
 
     //respond.status(200).json("API register recommend auto number");
 
@@ -31,14 +46,14 @@ const register_auto_recommend_number = (request, respond) => {
 }
 
 //ສະແດງເລກແນະນຳ
-const show_recommend_number = (request, respond) => {
+const show_recommend_number = async (request, respond) => {
 
-    const { id } = request.body;
+      jwt.verify(req.token, secretkey, (err, rstoken) => {
 
-    console.log(id);
+        const user_id = rstoken.id;
 
 
-    connected.query(queries.show_recommend_number, [id], (error, results) => {
+    connected.query(queries.show_recommend_number, [user_id], (error, results) => {
         if (error) throw error;
         if (results.rows.length) {
             respond.status(200).json(results.rows);
@@ -48,14 +63,20 @@ const show_recommend_number = (request, respond) => {
     })
 
     // respond.status(200).json("API show single recommend number ");
-
+      });
 
 }
 
 //ຜູກເລກແນະນຳ
 const join_recommend_number_sub_user = (request, respond) => {
+    const join_recommend_number_sub_user = (request, respond) => {
 
     const { recommender_id, buyer_id, point_recieve } = request.body;
+
+    jwt.verify(req.token, secretkey, (err, rstoken) => {
+        if (err) {
+            res.status(200).json("token expire");
+        } else {
 
     connected.query(queries.recommend_number_sub_user, [recommender_id, buyer_id, point_recieve], (error, results) => {
         if (error) throw error;
@@ -65,11 +86,9 @@ const join_recommend_number_sub_user = (request, respond) => {
             respond.status(200).json("Insert error");
         }
     })
-
-
+        }
+});
     //respond.status(200).json("API join recommend number with sub user ");
-
-
 }
 
 
@@ -77,21 +96,24 @@ const join_recommend_number_sub_user = (request, respond) => {
 //ສະແດງຍອດແນະນຳ
 const show_recommend_total_point = (request, respond) => {
 
-    const { recommender_id } = request.body;
+    jwt.verify(req.token, secretkey, (err, rstoken) => {
+        const user_id = rstoken.id;
+
+        if (err) {
+            res.status(200).json("token expire");
+        } else {
 
     connected.query(queries.show_recommend_total_point, [recommender_id], (error, results) => {
-        if (error) throw error;
-        if (results) {
+        if (error){
+        res.status(201).json("update faild");
+        throw error;
+        }else{
             respond.status(200).json(results.rows);
-        } else {
-            respond.status(200).json("error");
         }
     })
-
-
+        }
+});
     //respond.status(200).json("API show total recommend point ");
-
-
 }
 
 
