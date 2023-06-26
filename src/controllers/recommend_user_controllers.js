@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 const secretkey = "CtectLottery";
 
 //ອໍໂຕລົງທະບຽນເລກແນະນຳ
-const register_auto_recommend_number = (request, respond) => {
+const register_auto_recommend_number = async(request, respond) => {
 
     jwt.verify(request.token, secretkey, (err, rstoken) => {
         if (err) {
@@ -57,7 +57,7 @@ const register_auto_recommend_number = (request, respond) => {
 }
 
 //ສະແດງເລກແນະນຳ
-const show_recommend_number = (request, respond) => {
+const show_recommend_number = async(request, respond) => {
 
     jwt.verify(request.token, secretkey, (err, rstoken) => {
 
@@ -88,80 +88,81 @@ const show_recommend_number = (request, respond) => {
 
 //ຜູກເລກແນະນຳ
 const join_recommend_number_sub_user = (request, respond) => {
+        const join_recommend_number_sub_user = (request, respond) => {
 
-    const { recommend_number } = request.body;
+            const { recommend_number } = request.body;
 
-    jwt.verify(request.token, secretkey, (err, rstoken) => {
-        if (err) {
-            respond.status(200).json("token expire");
-        } else {
+            jwt.verify(request.token, secretkey, (err, rstoken) => {
+                if (err) {
+                    respond.status(200).json("token expire");
+                } else {
 
-            const buyer_id = rstoken.id;
+                    const buyer_id = rstoken.id;
 
-            connected.query(queries.check_recommend_number_code, [recommend_number], (error, results) => {
-                if (error) throw error;
-                if (results.rows.length) {
+                    connected.query(queries.check_recommend_number_code, [recommend_number], (error, results) => {
+                        if (error) throw error;
+                        if (results.rows.length) {
 
-                    const user_recommend_id = results.rows[0].user_external_id;
+                            const user_recommend_id = results.rows[0].user_external_id;
 
-                    if (user_recommend_id === buyer_id) {
-                        respond.status(200).send("ບໍ່ສາມາດຜູກເລກຕົວເອງໄດ້");
-                    } else {
-
-                        connected.query(queries.check_join_recommender_buyer, [user_recommend_id, buyer_id], (error, results) => {
-                            if (error) throw error;
-                            if (results.rows.length) {
-                                respond.status(200).send("ມີການຜູກແລ້ວ");
+                            if (user_recommend_id === buyer_id) {
+                                respond.status(200).send("ບໍ່ສາມາດຜູກເລກຕົວເອງໄດ້");
                             } else {
-                                connected.query(queries.join_recommender_with_buyer_by_recommend_code, [user_recommend_id, buyer_id], (error, results) => {
-                                    if (error) {
-                                        respond.status(200).json("Insert error");
+
+                                connected.query(queries.check_join_recommender_buyer, [user_recommend_id, buyer_id], (error, results) => {
+                                    if (error) throw error;
+                                    if (results.rows.length) {
+                                        respond.status(200).send("ມີການຜູກແລ້ວ");
                                     } else {
-                                        respond.status(200).json("ຜູກສຳເລັດ");
+                                        connected.query(queries.join_recommender_with_buyer_by_recommend_code, [user_recommend_id, buyer_id], (error, results) => {
+                                            if (error) {
+                                                respond.status(200).json("Insert error");
+                                            } else {
+                                                respond.status(200).json("ຜູກສຳເລັດ");
+                                            }
+                                        })
                                     }
                                 })
+
                             }
-                        })
-
-                    }
-                } else {
-                    respond.status(200).send("no data");
+                        } else {
+                            respond.status(200).send("no data");
+                        }
+                    })
                 }
-            })
+            });
         }
-    });
-}
 
 
 
-//ສະແດງຍອດແນະນຳ
-const show_recommend_total_point = (request, respond) => {
+        //ສະແດງຍອດແນະນຳ
+        const show_recommend_total_point = (request, respond) => {
 
-    jwt.verify(request.token, secretkey, (err, rstoken) => {
+            jwt.verify(request.token, secretkey, (err, rstoken) => {
 
 
-        if (err) {
-            respond.status(200).json("token expire");
-        } else {
-            const user_id = rstoken.id;
-            connected.query(queries.show_recommend_total_point, [user_id], (error, results) => {
-                if (error) throw error;
-                if (results.rows.length) {
-
-                    respond.status(200).send(results.rows);
+                if (err) {
+                    respond.status(200).json("token expire");
                 } else {
-                    respond.status(200).send("no data");
+                    const user_id = rstoken.id;
+                    connected.query(queries.show_recommend_total_point, [user_id], (error, results) => {
+                        if (error) throw error;
+                        if (results.rows.length) {
+
+                            respond.status(200).send(results.rows);
+                        } else {
+                            respond.status(200).send("no data");
+                        }
+                    })
                 }
-            })
+            });
+            //respond.status(200).json("API show total recommend point ");
         }
-    });
-    //respond.status(200).json("API show total recommend point ");
-}
 
 
-module.exports = {
-    register_auto_recommend_number,
-    show_recommend_number,
-    join_recommend_number_sub_user,
-    show_recommend_total_point,
-}
+        module.exports = {
+            register_auto_recommend_number,
+            show_recommend_number,
+            join_recommend_number_sub_user,
+            show_recommend_total_point,
+        }
