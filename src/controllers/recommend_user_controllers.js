@@ -13,34 +13,45 @@ const secretkey = "CtectLottery";
 //ອໍໂຕລົງທະບຽນເລກແນະນຳ
 const register_auto_recommend_number = (request, respond) => {
 
-    jwt.verify(req.token, secretkey, (err, rstoken) => {
+    jwt.verify(request.token, secretkey, (err, rstoken) => {
+        if (err) {
+            respond.status(200).json("token expire");
+        } else {
+            const user_id = rstoken.id;
+            const token_phone = rstoken.phone;
 
-        const user_id = rstoken.id;
-   
-    connected.query(queries.check_phone, [user_id], (error, results) => {
-        if (error) throw error;
-        if (results) {
-            
-        const currentYear = date.getFullYear() ;
-        const currentMonth = date.getMonth() + 1 ; // 0 - 11
-        const phone_number = results.phone_number;
+            let date_ob = new Date();
+            let date = ("0" + date_ob.getDate()).slice(-2);
+            let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+            let year = date_ob.getFullYear();
+            const generade_recommend_number = (year + month + date + token_phone)
 
-        const recommend_number = currentYear.concat(currentMonth).concat(currentMonth).concat(phone_number);
-
-            connected.query(queries.recommend_number, [user_id, recommend_number], (error, results) => {
+            connected.query(queries.check_recommend_number_by_user, [user_id], (error, results) => {
                 if (error) throw error;
-                if (results) {
-                    respond.status(200).json("Insert done");
+                if (results.rows.length) {
+                    respond.status(200).send("ມີການລົງທະບຽນແລ້ວ");
                 } else {
-                    respond.status(200).json("Insert error");
+
+                    connected.query(queries.recommend_number_by_user, [user_id, generade_recommend_number], (error, results) => {
+
+                        if (error) {
+                            respond.status(200).json("Insert error");
+                        } else {
+                            respond.status(200).json("Insert done");
+                        }
+
+                    })
+
                 }
-
-            })
+            });
         }
-    });
+
+
+
+
+
     });
 
-    //respond.status(200).json("API register recommend auto number");
 
 
 }
@@ -48,46 +59,77 @@ const register_auto_recommend_number = (request, respond) => {
 //ສະແດງເລກແນະນຳ
 const show_recommend_number = (request, respond) => {
 
-      jwt.verify(req.token, secretkey, (err, rstoken) => {
+    jwt.verify(request.token, secretkey, (err, rstoken) => {
 
-        const user_id = rstoken.id;
-
-
-    connected.query(queries.show_recommend_number, [user_id], (error, results) => {
-        if (error) throw error;
-        if (results.rows.length) {
-            respond.status(200).json(results.rows);
+        if (err) {
+            respond.status(200).json("token expire");
         } else {
-            respond.status(200).send("no data");
-        }
-    })
+            const user_id = rstoken.id;
 
-    // respond.status(200).json("API show single recommend number ");
-      });
+            connected.query(queries.show_recommend_number, [user_id], (error, results) => {
+                if (error) throw error;
+                if (results.rows.length) {
+                    respond.status(200).json(results.rows);
+                } else {
+                    respond.status(200).send("no data");
+                }
+            })
+
+        }
+
+
+
+
+
+        // respond.status(200).json("API show single recommend number ");
+    });
 
 }
 
 //ຜູກເລກແນະນຳ
 const join_recommend_number_sub_user = (request, respond) => {
 
-    const { recommender_id, buyer_id, point_recieve } = request.body;
+    const { recommend_number } = request.body;
 
-    jwt.verify(req.token, secretkey, (err, rstoken) => {
+    jwt.verify(request.token, secretkey, (err, rstoken) => {
         if (err) {
-            res.status(200).json("token expire");
+            respond.status(200).json("token expire");
         } else {
 
-    connected.query(queries.recommend_number_sub_user, [recommender_id, buyer_id, point_recieve], (error, results) => {
-        if (error) throw error;
-        if (results) {
-            respond.status(200).json("Insert done");
-        } else {
-            respond.status(200).json("Insert error");
+            const buyer_id = rstoken.id;
+
+            connected.query(queries.check_recommend_number_code, [recommend_number], (error, results) => {
+                if (error) throw error;
+                if (results.rows.length) {
+
+                    const user_recommend_id = results.rows[0].user_external_id;
+
+                    if (user_recommend_id === buyer_id) {
+                        respond.status(200).send("ບໍ່ສາມາດຜູກເລກຕົວເອງໄດ້");
+                    } else {
+
+                        connected.query(queries.check_join_recommender_buyer, [user_recommend_id, buyer_id], (error, results) => {
+                            if (error) throw error;
+                            if (results.rows.length) {
+                                respond.status(200).send("ມີການຜູກແລ້ວ");
+                            } else {
+                                connected.query(queries.join_recommender_with_buyer_by_recommend_code, [user_recommend_id, buyer_id], (error, results) => {
+                                    if (error) {
+                                        respond.status(200).json("Insert error");
+                                    } else {
+                                        respond.status(200).json("ຜູກສຳເລັດ");
+                                    }
+                                })
+                            }
+                        })
+
+                    }
+                } else {
+                    respond.status(200).send("no data");
+                }
+            })
         }
-    })
-        }
-});
-    //respond.status(200).json("API join recommend number with sub user ");
+    });
 }
 
 
@@ -95,23 +137,24 @@ const join_recommend_number_sub_user = (request, respond) => {
 //ສະແດງຍອດແນະນຳ
 const show_recommend_total_point = (request, respond) => {
 
-    jwt.verify(req.token, secretkey, (err, rstoken) => {
-        const user_id = rstoken.id;
+    jwt.verify(request.token, secretkey, (err, rstoken) => {
+
 
         if (err) {
-            res.status(200).json("token expire");
+            respond.status(200).json("token expire");
         } else {
+            const user_id = rstoken.id;
+            connected.query(queries.show_recommend_total_point, [user_id], (error, results) => {
+                if (error) throw error;
+                if (results.rows.length) {
 
-    connected.query(queries.show_recommend_total_point, [recommender_id], (error, results) => {
-        if (error){
-        res.status(201).json("update faild");
-        throw error;
-        }else{
-            respond.status(200).json(results.rows);
+                    respond.status(200).send(results.rows);
+                } else {
+                    respond.status(200).send("no data");
+                }
+            })
         }
-    })
-        }
-});
+    });
     //respond.status(200).json("API show total recommend point ");
 }
 

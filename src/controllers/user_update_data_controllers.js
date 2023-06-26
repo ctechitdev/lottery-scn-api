@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 
 // call json web token
 const jwt = require('jsonwebtoken');
- 
+
 // key use for decript and encrype JWT
 const secretkey = "CtectLottery";
 
@@ -17,40 +17,38 @@ const secretkey = "CtectLottery";
 // ສະແດງຂໍ້ມູນຜູ້ໃຊ
 const show_user_data = (request, respond) => {
 
-    jwt.verify(req.token, secretkey, (err, rstoken) => {
+    jwt.verify(request.token, secretkey, (err, rstoken) => {
         if (err) {
             res.status(200).json("token expire");
         } else {
-
             const id = rstoken.id;
-    
-
-        connected.query(queries.show_user_data,[id],(error, results)=> {
-            if(error) throw error;
-            if(results.rows.length){
-                respond.status(200).json(results.rows);
-            }else{
-                respond.status(200).send("no users");
-            }
-            }) ;
+            connected.query(queries.show_user_data, [id], (error, results) => {
+                if (error) throw error;
+                if (results.rows.length) {
+                    respond.status(200).json(results.rows);
+                } else {
+                    respond.status(200).send("no users");
+                }
+            });
         }
-        }); 
+    });
     ///respond.status(200).json("API single User data");
 }
 
 //ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້ 
-const update_user_data = (request, respond) => {
+const update_user_data = async(request, respond) => {
 
-    const {id,gender, full_name, pass_word } = request.body;
+        const { gender, full_name, pass_word } = request.body;
+        const encryptPassword = await bcrypt.hash(pass_word, 10);
 
-    jwt.verify(req.token, secretkey, (err, rstoken) => {
-        const id = rstoken.id;
-        if (err) {
-            res.status(200).json("token expire");
-        } else {
-            const encryptPassword = bcrypt.hash(pass_word, 10);
+        jwt.verify(request.token, secretkey, (err, rstoken) => {
 
-            connected.query(queries.update_user_data, [id, gender, full_name, encryptPassword], (error, results) => {
+            if (err) {
+                res.status(200).json("token expire");
+            } else {
+
+                const id = rstoken.id;
+                connected.query(queries.update_user_data, [id, gender, full_name, encryptPassword], (error, results) => {
                     if (error) throw error;
                     if (results.rowCount == 1) {
                         respond.status(200).json("update done");
@@ -59,9 +57,9 @@ const update_user_data = (request, respond) => {
                     }
                 })
             }
-    })
-}
-        //respond.status(200).json("API update User single data");
+        })
+    }
+    //respond.status(200).json("API update User single data");
 
 
 module.exports = {
