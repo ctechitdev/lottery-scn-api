@@ -6,28 +6,23 @@ const queries = require('../queries/login_query');
 // call bcrype package
 const bcrypt = require('bcrypt');
 
-// call json web token
-const jwt = require('jsonwebtoken');
-
-// key use for decript and encrype JWT
-const secretkey = "CtectLottery";
+ 
 
 const login = (request, respond) => {
 
-    const { phone_number, pass_word } = request.body;
+    const { registration_token } = request.body;
 
-    connected.query(queries.login_check, [phone_number], (error, results) => {
+    connected.query(queries.login_check, [otp], (error, results) => {
         if (error) throw error;
         if (results.rows.length) {
             const users = results.rows[0];
 
 
-            bcrypt.compare(pass_word, users.pass_word, (error, isMatch) => {
+            bcrypt.compare(registration_token, users.otp, (error, isMatch) => {
 
                 if (isMatch) {
-                    const accessToken = jwt.sign({ id: users.user_external_id, phone: users.phone_number }, secretkey, { expiresIn: "2h" });
-
-                    respond.status(200).json([{ accessToken }])
+                  
+                    respond.status(200).send("login success");
 
 
                 } else {

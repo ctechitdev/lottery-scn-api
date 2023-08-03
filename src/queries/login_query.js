@@ -1,5 +1,5 @@
-const login_check = "SELECT user_external_id, gender, full_name, phone_number, pass_word, user_status, date_register,TO_CHAR(date_register, 'DD-mm-YYYY' ) date_register " +
-    " FROM tbl_user_external where phone_number = $1 ";
+const login_check = "SELECT a.id, firstname, lastname, a.phone, email, dob, gender,otp, image, registration_token"+
+"FROM customer a left join otp b on a.id = b.id where otp = $1 ";
 
 
 module.exports = {
