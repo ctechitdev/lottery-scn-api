@@ -34,7 +34,7 @@ const payment_lottery_bank = (request, respond) => {
     //ວົນລູບຕາມຈຳນວນ
     while (i < lottery_number.length) {
         //  console.log(array[i])
-        connected.query(queries.insert_data, [lottery_number[i], price_values[i]])
+        connected.query(queries.insert_data, [lottery_number[i], price_values[i]] )
         i++
     }
 

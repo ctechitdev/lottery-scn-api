@@ -8,7 +8,7 @@ const queries = require("../queries/register_user_query");
 const register_user = async (request, respond) => {
   // respond.status(200).json("API Register User");
 
-  const {firstname,lastname, gender, phone,email,dob,image} = request.body;
+  const {firstname,lastname, gender, phone,email,dob,image,registration_token } = request.body;
 
   
 
@@ -18,7 +18,7 @@ const register_user = async (request, respond) => {
     } else {
       connected.query(
         queries.adduser,
-        [firstname,lastname, gender, phone,email,dob,image],
+        [firstname,lastname, gender, phone,email,dob,image,registration_token],
         (error, results) => {
           if (error) throw error;
           respond.send("ລົງທະບຽນສຳເລັດ");
