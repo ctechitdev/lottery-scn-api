@@ -1,11 +1,11 @@
 // command sql select single user data
-const show_user_data = "select gender,full_name,phone_number,user_status from tbl_user_external where user_external_id = $1";
+const show_user_data = "select id,firstname, lastname, phone, email, dob, gender, image from customer where id = $1";
 
 
 
 // command sql update user data
 
-const update_user_data = "update tbl_user_external set gender = $2,full_name = $3, pass_word = $4 where user_external_id = $1";
+const update_user_data = "update customer set firstname = $2, lastname =$3 , email = $4, dob =$5 , gender =$6, image=$7 where id = $1";
 
 
 module.exports = {

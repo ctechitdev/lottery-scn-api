@@ -5,7 +5,7 @@ const queries = require('../queries/user_update_data_queries');
 
 
 // call bcrypt for decrypt function
-const bcrypt = require('bcrypt');
+ 
 
 // call json web token
 const jwt = require('jsonwebtoken');
@@ -39,8 +39,8 @@ const show_user_data = async(request, respond) => {
 const update_user_data = async(request, respond) => {
 
 
-        const { gender, full_name, pass_word } = request.body;
-        const encryptPassword = await bcrypt.hash(pass_word, 10);
+        const { firstname, lastname, email, dob, gender, image} = request.body;
+    
 
         jwt.verify(request.token, secretkey, (err, rstoken) => {
 
@@ -49,7 +49,7 @@ const update_user_data = async(request, respond) => {
             } else {
 
                 const id = rstoken.id;
-                connected.query(queries.update_user_data, [id, gender, full_name, encryptPassword], (error, results) => {
+                connected.query(queries.update_user_data, [id ,firstname, lastname, email, dob, gender, image], (error, results) => {
                     if (error) throw error;
                     if (results.rowCount == 1) {
                         respond.status(200).json("update done");
