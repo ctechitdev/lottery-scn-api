@@ -3,9 +3,9 @@ const connected = require('../../setting/connect');
 
 const queries = require('../queries/login_query');
  
-const bcrypt = require('bcrypt');
-
-const jwt = require('jsonwebtoken');
+ const jwt = require('jsonwebtoken');
+ 
+const secretkey = "CtectLottery";
 
 const login = (request, respond) => {
 
@@ -20,7 +20,7 @@ const login = (request, respond) => {
              //respond.status(200).json(users.otp)
  
                 if (otp === users.otp ) {
-                    const accessToken = jwt.sign({ id: users.otp }, secretkey  );
+                    const accessToken = jwt.sign({ id: users.id }, secretkey  );;
 
                     respond.status(200).json([{ accessToken }])
 
