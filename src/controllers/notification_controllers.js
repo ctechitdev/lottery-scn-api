@@ -4,13 +4,7 @@ const connected = require('../../setting/connect');
 const queries = require('../queries/notification_queries');
 
 
-
-// call json web token
-const jwt = require('jsonwebtoken');
  
-// key use for decript and encrype JWT
-const secretkey = "CtectLottery";
-
 // ສົ່ງແຈ້ງເຕືອນຖືກລາງວັນ
 const notification_win_lottery = (request, respond) => {
     const { LOTTO_WIN_ID } = request.body;
