@@ -13,17 +13,30 @@ const secretkey = "CtectLottery";
 //ອໍໂຕລົງທະບຽນເລກແນະນຳ
 const register_auto_recommend_number = async(request, respond) => {
 
+    // ກວດສອບ jwt
     jwt.verify(request.token, secretkey, (err, rstoken) => {
         if (err) {
+            // ຖ້າໝົດອາຍຸສະແດງ
             respond.status(200).json("token expire");
         } else {
+
+            // ເກັບຂໍ້ມູນທີ່ແກະອອກມາຈາກ jwt
             const user_id = rstoken.id;
             const token_phone = rstoken.phone;
 
+            //ວາງໂຕແປຮັບມື້ປະຈຸບັນ
             let date_ob = new Date();
+
+            //ຮັບ ວັນ ໂຕແປ date_ob
             let date = ("0" + date_ob.getDate()).slice(-2);
+
+            //ຮັບ ເດືອນ ໂຕແປ date_ob
             let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+            //ຮັບ ປີ ໂຕແປ date_ob
             let year = date_ob.getFullYear();
+
+            // ລວມ ວັນເດືອນປີເປັນຮູບແບບ string 20230803 + ເລກໂທລະສັບ
             const generade_recommend_number = (year + month + date + token_phone)
 
             connected.query(queries.check_recommend_number_by_user, [user_id], (error, results) => {
