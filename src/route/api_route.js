@@ -11,6 +11,7 @@ const recommend_number_controllers = require('../controllers/recommend_user_cont
 const buy_lottery_process_controllers = require('../controllers/buy_lottery_controllers');
 const promotions_controllers = require('../controllers/promotions_controllers');
 const notification_controllers = require('../controllers/notification_controllers');
+const cancel_bill_controller = require('../controllers/cancel_billcontrollers');
 
 //set router
 const router = Router();
@@ -32,6 +33,8 @@ router.post('/historyboughlottery',verifyToken, buy_lottery_process_controllers.
 router.post('/promotioncashback',verifyToken, promotions_controllers.promotions_cash_back);
 router.post('/notifywinlottery',verifyToken, notification_controllers.notification_win_lottery);
 router.post('/notifyevent',verifyToken, notification_controllers.notification_event_promotion);
+router.post('/cancelbill', cancel_bill_controller.cancel_bill_event);
+router.post('/show_bill', cancel_bill_controller.show_bill);
 
 
 function verifyToken(req, res, next) {
