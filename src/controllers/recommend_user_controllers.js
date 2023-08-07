@@ -22,7 +22,7 @@ const register_auto_recommend_number = async(request, respond) => {
 
             // ເກັບຂໍ້ມູນທີ່ແກະອອກມາຈາກ jwt
             const user_id = rstoken.id;
-            const token_phone = rstoken.phone;
+            const random_number =  Math.floor(Math.random() * 100000000) ;
 
             //ວາງໂຕແປຮັບມື້ປະຈຸບັນ
             let date_ob = new Date();
@@ -37,7 +37,18 @@ const register_auto_recommend_number = async(request, respond) => {
             let year = date_ob.getFullYear();
 
             // ລວມ ວັນເດືອນປີເປັນຮູບແບບ string 20230803 + ເລກໂທລະສັບ
-            const generade_recommend_number = (year + month + date + token_phone)
+            const generade_recommend_number = (year + month + date + random_number)
+
+            // check recoment 
+
+            connected.query(queries.check_recommend_number_by_poin, [generade_recommend_number], (error, results) => {
+                if (error) throw error;
+                if (results.rows.length) {
+                    respond.status(200).send("ລອງໃຫມ່ອີກຄັ້ງ");
+                }  
+            });
+            
+            //check user
 
             connected.query(queries.check_recommend_number_by_user, [user_id], (error, results) => {
                 if (error) throw error;
@@ -55,14 +66,10 @@ const register_auto_recommend_number = async(request, respond) => {
 
                     })
 
-                }
+                };
             });
+            
         }
-
-
-
-
-
     });
 
 
@@ -99,54 +106,6 @@ const show_recommend_number = async(request, respond) => {
 
 }
 
-//ຜູກເລກແນະນຳ 
-const join_recommend_number_sub_user = (request, respond) => {
-
-    const { recommend_number } = request.body;
-
-    jwt.verify(request.token, secretkey, (err, rstoken) => {
-        if (err) {
-            respond.status(200).json("token expire");
-        } else {
-
-            const buyer_id = rstoken.id;
-
-            connected.query(queries.check_recommend_number_code, [recommend_number], (error, results) => {
-                if (error) throw error;
-                if (results.rows.length) {
-
-                    const user_recommend_id = results.rows[0].user_external_id;
-
-                    if (user_recommend_id === buyer_id) {
-                        respond.status(200).send("ບໍ່ສາມາດຜູກເລກຕົວເອງໄດ້");
-                    } else {
-
-                        connected.query(queries.check_join_recommender_buyer, [user_recommend_id, buyer_id], (error, results) => {
-                            if (error) throw error;
-                            if (results.rows.length) {
-                                respond.status(200).send("ມີການຜູກແລ້ວ");
-                            } else {
-                                connected.query(queries.join_recommender_with_buyer_by_recommend_code, [user_recommend_id, buyer_id], (error, results) => {
-                                    if (error) {
-                                        respond.status(200).json("Insert error");
-                                    } else {
-                                        respond.status(200).json("ຜູກສຳເລັດ");
-                                    }
-                                })
-                            }
-                        })
-
-                    }
-                } else {
-                    respond.status(200).send("no data");
-                }
-            })
-        }
-    });
-}
-
-
-
 //ສະແດງຍອດແນະນຳ
 const show_recommend_total_point = (request, respond) => {
 
@@ -175,6 +134,5 @@ const show_recommend_total_point = (request, respond) => {
 module.exports = {
     register_auto_recommend_number,
     show_recommend_number,
-    join_recommend_number_sub_user,
     show_recommend_total_point,
 }

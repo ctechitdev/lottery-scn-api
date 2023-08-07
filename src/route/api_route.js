@@ -25,7 +25,6 @@ router.post('/userdata',verifyToken, user_data_controllers.show_user_data);
 router.post('/userupdate',verifyToken, user_data_controllers.update_user_data);
 router.post('/recommendnumberregister',verifyToken, recommend_number_controllers.register_auto_recommend_number);
 router.post('/recommendnumberdata', verifyToken, recommend_number_controllers.show_recommend_number);
-router.post('/recommendjoin',verifyToken, recommend_number_controllers.join_recommend_number_sub_user);
 router.post('/recommendpoint',verifyToken, recommend_number_controllers.show_recommend_total_point);
 router.post('/checklotteryquotapromption',verifyToken, buy_lottery_process_controllers.check_lottery_quota_promotion);
 router.post('/paymentlotterybybank',verifyToken, buy_lottery_process_controllers.payment_lottery_bank);
