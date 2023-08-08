@@ -11,7 +11,8 @@ const check_recommend_number_by_poin = "SELECT * from point_transaction where po
 const show_recommend_number = "select cust_id,point_ref_id from point_transaction where cust_id = $1";
  
 // show_recommend_total_point
-const show_recommend_total_point = "SELECT recommender_id,sum(point_recieve)as point FROM tbl_recommend_point_amount where recommender_id = $1  group by recommender_id";
+const show_recommend_total_point = "SELECT cust_id,point_last_amount FROM point_transaction where cust_id = $1 ";
+
 
 
 module.exports = {

@@ -32,8 +32,8 @@ router.post('/historyboughlottery',verifyToken, buy_lottery_process_controllers.
 router.post('/promotioncashback',verifyToken, promotions_controllers.promotions_cash_back);
 router.post('/notifywinlottery',verifyToken, notification_controllers.notification_win_lottery);
 router.post('/notifyevent',verifyToken, notification_controllers.notification_event_promotion);
-router.post('/cancelbill', cancel_bill_controller.cancel_bill_event);
-router.post('/show_bill', cancel_bill_controller.show_bill);
+router.post('/cancelbill', verifyToken,cancel_bill_controller.cancel_bill_event);
+router.post('/show_bill', verifyToken,cancel_bill_controller.show_bill);
 
 
 function verifyToken(req, res, next) {

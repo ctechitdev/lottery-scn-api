@@ -111,16 +111,15 @@ const show_recommend_total_point = (request, respond) => {
 
     jwt.verify(request.token, secretkey, (err, rstoken) => {
 
-
         if (err) {
             respond.status(200).json("token expire");
         } else {
             const user_id = rstoken.id;
+
             connected.query(queries.show_recommend_total_point, [user_id], (error, results) => {
                 if (error) throw error;
                 if (results.rows.length) {
-
-                    respond.status(200).send(results.rows);
+                    respond.status(200).json(results.rows);
                 } else {
                     respond.status(200).send("no data");
                 }
