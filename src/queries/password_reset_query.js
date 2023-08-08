@@ -1,5 +1,5 @@
-const checkphone = "select * from  tbl_user_external where phone_number =$1" ;
- const setpassword = "update tbl_user_external set pass_word =$2  where phone_number = $1";
+const checkphone = "select * from  otp where phone =$1" ;
+ const setpassword = "update otp set otp =$2  where phone = $1";
 
  module.exports ={
    checkphone,

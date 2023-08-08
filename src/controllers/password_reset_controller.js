@@ -8,15 +8,12 @@ const bcrypt = require("bcrypt");
 const reset_password = async(request, respond) => {
     // respond.status(200).json("API reset password");
 
-    const random_number = Math.floor(Math.random() * 1000000) ;
+    const random_number = Math.floor(Math.random() * 10000) ;
 
     const newPassword = random_number.toString();
 
     const { phone_number } = request.body;
 
-
-
-    const encryptPassword = await bcrypt.hash(newPassword, 10);
 
     connected.query(queries.checkphone, [phone_number], (error, results) => {
         const checkpass = !results.rows.length;
@@ -24,7 +21,7 @@ const reset_password = async(request, respond) => {
             respond.send("ບໍ່ມີໃນລະບົບ");
         } else {
             connected.query(
-                queries.setpassword, [phone_number, encryptPassword],
+                queries.setpassword, [phone_number, newPassword],
                 (error, results) => {
                     if (error) throw error;
                     respond.status(200).send("ປ່ຽນລະຫັດສຳເລັດ");
