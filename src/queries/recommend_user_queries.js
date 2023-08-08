@@ -11,7 +11,7 @@ const check_recommend_number_by_poin = "SELECT * from point_transaction where po
 const show_recommend_number = "select cust_id,point_ref_id from point_transaction where cust_id = $1";
  
 // show_recommend_total_point
-const show_recommend_total_point = "SELECT cust_id,point_last_amount FROM point_transaction where cust_id = $1 ";
+const show_recommend_total_point = "SELECT  point_last_amount FROM point_transaction where cust_id = $1 ";
 
 
 
